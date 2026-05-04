@@ -25,13 +25,16 @@ TITLE_FONT_SIZE = 15
 
 
 def _get_font(size: int) -> ImageFont.ImageFont:
-    """Пробуем загрузить системный шрифт, иначе дефолтный."""
+    """Загружаем шрифт из assets, затем системные fallback-варианты."""
+    import os
+    base = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     font_candidates = [
+        os.path.join(base, "assets", "DejaVuSans.ttf"),
+        "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
+        "/usr/share/fonts/dejavu/DejaVuSans.ttf",
+        "DejaVuSans.ttf",
         "arial.ttf",
         "Arial.ttf",
-        "DejaVuSans.ttf",
-        "LiberationSans-Regular.ttf",
-        "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
         "C:/Windows/Fonts/arial.ttf",
     ]
     for path in font_candidates:
